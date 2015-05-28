@@ -99,7 +99,7 @@ int hexToInt(char hex[], int len)
         reverse(hex,revhex,len);
 
     for (i=0; i<len; i++) {
-        output += returnNum(revhex[i]) * mypow(16,i);
+        output += returnNum((char)revhex[i]) * mypow(16,i);
     }
     return output;
 }

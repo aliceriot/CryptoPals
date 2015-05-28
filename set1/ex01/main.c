@@ -4,20 +4,29 @@
 
 void main()
 {
-    char hexVals[MAXLINE];
-    int intVals[MAXLINE];
-    char base64Vals[MAXLINE];
+    char hex[MAXLINE];
+    int ints[MAXLINE];
+    char base64[MAXLINE];
 
-    int len, i, numInts;
-    
-    len = mygetline(hexVals, MAXLINE);
+    int hexLen, intLen;
 
-    numInts = convertList(hexVals, intVals, base64Vals);
 
-    for (i=0; i < numInts; i++) {
-        printf("%d\n", intVals[i]);
-    }
-    printf("%d\n", hexToInt("6f", 2));
+    ints[0] = 456;
+
+    hexLen = mygetline(hex, MAXLINE);
+    printf("%d\n",strlen(hex));
+    printf("%c\t%d\t\n",hex[0], hex[1], hex[2]);
+    printf("\nblah\n");
+    printf("%d\n",returnNum((char) hex[0]));
+    printf("%d\n",returnNum((char) hex[1]));
+
+    char small[3];
+    printf("%d\n", hexToInt(hex,3));
+
+    intLen = convertListToInt(hex, ints);
+
+    printf("%d\t%d\n", ints[0], ints[1]);
+
 }
-     
+
 
