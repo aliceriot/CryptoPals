@@ -2,8 +2,8 @@
 
 int returnNum(char c);
 int reverse(char forward[], char backward[], int len);
-int mypower(int num, int power);
-int hexToInt(char hex[], int len);
+//int mypower(int num, int power);
+int hexToInt(char one, char two);
 int mygetline(char s[], int lim);
 int convertListToInt(char hex[], int intVals[]);
 int convertListToBase64(int intVals[], char base64[]);

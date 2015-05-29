@@ -7,14 +7,10 @@
 int convertListToInt(char hex[], int intVals[])
 {
     int i,j = 0;
-    char scratch[3];
 
-    for (i=0; i < strlen(hex); i+= 2) {
-        scratch[0] = hex[i];
-        scratch[1] = hex[i+1];
-        intVals[j] = hexToInt(scratch, 2);
-        j++;
-    }
+    for (i=0; i < strlen(hex); i+= 2)
+        intVals[j++] = hexToInt(hex[i], hex[i+1]);
+
     return j;
 }
 

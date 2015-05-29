@@ -6,22 +6,22 @@
 // a simple function to take a hex value and return an int
 // needs a couple of helper functions
 
-int mypow(int num, int power)
-{
-    int output = 1;
-    int i;
+/* int mypow(int num, int power) */
+/* { */
+/*     int output = 1; */
+/*     int i; */
 
-    if (power == 0)
-        return output;
-    else if (power == 1)
-        return num;
-    else if (power > 1) {
-        for (i = power; i >= 1; i--) {
-            output = output * num;
-        }
-        return output;
-    }
-}
+/*     if (power == 0) */
+/*         return output; */
+/*     else if (power == 1) */
+/*         return num; */
+/*     else if (power > 1) { */
+/*         for (i = power; i >= 1; i--) { */
+/*             output = output * num; */
+/*         } */
+/*         return output; */
+/*     } */
+/* } */
 
 int returnNum(char c)
 {
@@ -81,26 +81,13 @@ int returnNum(char c)
     }
 }
 
-int hexToInt(char hex[], int len)
+int hexToInt(char one, char two)
 {
-    int output = 0;
-    int i;
-    char revhex[MAXLINE];
-    char subhex[MAXLINE];
 
-    if (hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X')) {
-        for (i = 2; i < len; i++) {
-            subhex[i-2] = hex[i];
-            reverse(subhex,revhex,len);
-            len -= 2;
-        }
-    }
-    else
-        reverse(hex,revhex,len);
+    int numOne = returnNum(one);
+    int numTwo = returnNum(two);
 
-    for (i=0; i<len; i++) {
-        output += returnNum((char)revhex[i]) * mypow(16,i);
-    }
-    return output;
+    return numTwo + (numOne * 16);
 }
+
 
