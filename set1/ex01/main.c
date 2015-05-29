@@ -4,11 +4,11 @@
 
 void main()
 {
-    char hex[MAXLINE] = "6F8DEA93";
+    char hex[MAXLINE] = "49276d";
     int ints[MAXLINE];
     char base64[MAXLINE];
 
-    int hexLen, intLen, i;
+    int hexLen, intLen, i, baseVal;
 
     intLen = convertListToInt(hex, ints);
 
@@ -17,12 +17,17 @@ void main()
 
     printf("\n\n");
 
-    hexLen = mygetline(hex, MAXLINE);
+    /* hexLen = mygetline(hex, MAXLINE); */
 
-    intLen = convertListToInt(hex, ints);
+/*     intLen = convertListToInt(hex, ints); */
 
-    for (i = 0; i < intLen; i++)
-        printf("%d\t", ints[i]);
+/*     for (i = 0; i < intLen; i++) */
+/*         printf("%d\t", ints[i]); */
+
+
+    baseVal = intToBase64(ints, base64, intLen);
+
+    printf("\n%s\n", base64);
 
 }
 
