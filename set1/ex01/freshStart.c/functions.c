@@ -56,7 +56,7 @@ char bitsToBase64(unsigned int n)
 int bytesToBase64(unsigned int bytes[], char base64[], int numbytes)
 {
 
-    int i,j;
+    int i,j = 0;
     unsigned int temp1, temp2, threebytes;
 
     for (i = 0; i < numbytes; i += 3) {
@@ -64,19 +64,11 @@ int bytesToBase64(unsigned int bytes[], char base64[], int numbytes)
         temp2 = bytes[i+1] << 8;
         threebytes = (temp1 | temp2) | bytes[i+2];
 
-        printf("this is threebits %u\n\n", threebytes);
-
         base64[j] = bitsToBase64(threebytes >> 18);
         base64[j+1] = bitsToBase64(threebytes >> 12);
         base64[j+2] = bitsToBase64(threebytes >> 6);
         base64[j+3] = bitsToBase64(threebytes);
         
-        /* printf("%c",bitsToBase64(threebytes >> 18)); */
-        /* printf("%c",bitsToBase64(threebytes >> 12)); */
-        /* printf("%c",bitsToBase64(threebytes >> 6)); */
-        /* printf("%c\t",bitsToBase64(threebytes)); */
-        
-
         j += 4;
     }
     // edge cases here (remember we still have whatever i last was)

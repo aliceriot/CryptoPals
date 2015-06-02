@@ -29,6 +29,13 @@ void main()
 
     printf("\n%s\n", base64);
 
+    int thing = 73;
+    char scratch1[MAXLINE];
+
+    base64String(scratch1, thing);
+
+    printf("\n%s\n", scratch1);
+
 }
 
 

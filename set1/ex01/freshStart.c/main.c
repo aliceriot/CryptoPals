@@ -11,6 +11,7 @@ void main()
     int bitarray[MAXLINE];
     int bytearray[MAXLINE];
     char base64[MAXLINE];
+    char theirB64[] = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
 
     int numbits, numbytes, numchars;
    
@@ -28,5 +29,7 @@ void main()
         printf("%u ", bytearray[i]);
 
     printf("\n\nBase64: \n%s\n", base64);
+
+    printf("%s", theirB64);
 
 }
