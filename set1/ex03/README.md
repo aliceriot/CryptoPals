@@ -41,6 +41,7 @@ hexfunctions.c:
         - from before
     - int hexArrayToByteArray(char hex[], int bytes[]);
         - takes our hex string, turns it into bytes
+        - I think once I have that I don't actually need a bytetostring?
 
 xorcipher.c
     - void xorByteArray(int test, int numBytes, int byteArray[], int
