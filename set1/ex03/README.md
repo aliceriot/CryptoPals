@@ -48,3 +48,23 @@ xorcipher.c
       outArray[])
         - just returns intput ^ operand
 
+#Algorithm
+
+How we actually do this. We get a hex string as input, and we want to
+output plaintext:
+
+so:
+    
+    char hexinput[] = "";
+    int byteArray[MAXLINE];
+    int numBytes;
+
+turn hex into byte array:
+
+    numBytes = hexArrayToByteArray(hexinput, byteArray);
+
+OK so we've recovered the key (not really) and it's 88. Good, but 88 is
+NOT getting the lowest score from findKey (bad).
+
+Rewriting find key to store all keys with score < 0.1, then we hopefully
+can just print those!
