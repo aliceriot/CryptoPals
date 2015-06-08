@@ -24,3 +24,25 @@ Going to mainly be adapting the code from task03. We'll change the way we
 do scoring, from scoring keys for a single message to scoring the message
 for encrypted-ness.
 
+##Message scoring
+
+I'm thinking about a variety of different ways in which we can do message
+scoring. Some ideas:
+
+    - compare number of keys with score = -1.0 (non ascii, disqualified) 
+    - lowest summmed keyscore (for non-rejected keys)
+    - ??? probably more options?
+
+Anyway, I'm going to need a lot of the code from task03. I'm going to call the
+two scoring options (above) method 1 and method 2, I'm going to write number
+2 first.
+
+###Method 2
+
+It does return values! I need to build something to read in the file, loop
+through, and return an array of values with method2.
+
+###File load
+
+Trying to read the file in and save each line as a string, with a pointer
+of arrays. Always fun to play with files in C...
