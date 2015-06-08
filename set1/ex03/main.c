@@ -17,7 +17,7 @@ void main()
     numKeys = findKey(teststring, possibleKeys);
 
     // loop through keys, print out poss. cleartext (along with score)
-    char testKeyArray[MAXLINE];;
+    char testKeyArray[MAXLINE];
     float score;
 
     for (i = 0; i < numKeys; i++) {
