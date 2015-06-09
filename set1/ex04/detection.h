@@ -12,3 +12,4 @@ void xorByteArray(int key, int numBytes, int byteArray[], char outArray[]);
 float methodTwo(char ciphertext[]);
 int loadFile(char fileLocation[], char *stringArray[]);
 int methodTwoLoop(char *stringArray[], int numLines, int goodLines[]);
+int frequencyFilter(char hexstring[]);

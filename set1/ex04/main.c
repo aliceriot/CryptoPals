@@ -19,35 +19,37 @@ void main()
 
     int bestLine;
     int goodLines[327];
-    memset(goodLines, 0, 256*sizeof(int));
+    memset(goodLines, 0, 327*sizeof(int));
     bestLine = methodTwoLoop(stringArray, numLines, goodLines);
     
     int byteArray[MAXLINE]; int numBytes; int i; int j = 0;
 
-    int line;
-    for (i = 0; i < 327; i++) {
-        line = goodLines[j];
-        if (line == 0)
-            break;
-        printf("--------------------------\n");
-        printf("Line %d\n", line);
-        numBytes = hexArrayToByteArray(stringArray[line], byteArray);
+    for (i = 0; i < 327; i++)
+        printf("Line: %d frequencyFilter: %d\n", i, frequencyFilter(stringArray[i]));
 
-        int numKeys;
-        int possibleKeys[256];
-        numKeys = findKey(stringArray[line], possibleKeys);
+    /* int line; */
+    /* for (i = 0; i < 327; i++) { */
+    /*     line = goodLines[i]; */
+    /*     if (line == 0) */
+    /*         break; */
 
-        char testKeyArray[MAXLINE];
-        float score;
+    /*     printf("--------------------------\n"); */
+    /*     numBytes = hexArrayToByteArray(stringArray[line], byteArray); */
 
-        printf("%d", goodLines[j]);
-        printf("%d", numKeys);
+    /*     int numKeys; */
+    /*     int possibleKeys[256]; */
+    /*     numKeys = findKey(stringArray[line], possibleKeys); */
 
-        for (i = 0; i < numKeys; i++) {
-            xorByteArray(possibleKeys[i], numBytes, byteArray, testKeyArray);
-            score = testKey(byteArray, possibleKeys[i], numBytes);
-            printf("Key: %d \t Score: %f \t Message: %s\n", possibleKeys[i], score, testKeyArray);
-        }
-    }
+    /*     char testKeyArray[MAXLINE]; */
+    /*     float score; */
+
+    /*     printf("Line: %d Keys: %d\n", line, numKeys); */
+
+    /*     for (j = 0; j < numKeys; j++) { */
+    /*         xorByteArray(possibleKeys[j], numBytes, byteArray, testKeyArray); */
+    /*         score = testKey(byteArray, possibleKeys[j], numBytes); */
+    /*         printf("Key: %d \t Score: %f \t Message: %s\n", possibleKeys[j], score, testKeyArray); */
+    /*     } */
+    /* } */
         
 }

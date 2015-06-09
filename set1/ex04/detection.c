@@ -2,6 +2,63 @@
 #include <string.h>
 #include "detection.h"
 
+// returns one if the most common byte can be XOR'ed to A, T, or E
+int frequencyFilter(char hexstring[])
+{
+    int freqArray[256];
+    int i;
+    int byteArray[MAXLINE];
+    int mostFrequentByte = 0;
+    int numbytes;
+
+    numbytes = hexArrayToByteArray(hexstring, byteArray);
+    memset(freqArray, 0, 256*sizeof(int));
+
+    for (i = 0; i < numbytes; i++) {
+        freqArray[byteArray[i]] += 1;
+    }
+    
+    for (i = 0; i < 256; i++) {
+        if (freqArray[i] > mostFrequentByte)
+            mostFrequentByte = i;
+    }
+    printf("\nMost frequent byte: %d\n", mostFrequentByte);
+
+    int foundOne = 0;
+
+    for (i = 0; i < 256; i++) {
+        if ((mostFrequentByte ^ i) == 'e')
+            foundOne = 1;
+        else if ((mostFrequentByte ^ i) == 'E')
+            foundOne = 1;
+        else if ((mostFrequentByte ^ i) == 'a')
+            foundOne = 1;
+        else if ((mostFrequentByte ^ i) == 'A')
+            foundOne = 1;
+        else if ((mostFrequentByte ^ i) == 't')
+            foundOne = 1;
+        else if ((mostFrequentByte ^ i) == 'T')
+            foundOne = 1;
+    }
+    return foundOne;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 float methodTwo(char ciphertext[])
 {
     int keyArray[256];
@@ -44,9 +101,6 @@ int methodTwoLoop(char *stringArray[], int numLines, int goodLines[])
     return bestLine;
         //printf("Line: %d Score: %f\n", i, methodTwo(stringArray[i]));
 }
-    
-    
-
 
 int loadFile(char fileLocation[], char *stringArray[])
 {
