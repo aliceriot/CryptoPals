@@ -1,8 +1,8 @@
 CC=gcc
 CFLAGS=-I -lm
-DEPS = detection.h
+DEPS = src/detection.h
 
-out/%.o: %.c $(DEPS)
+out/%.o: src/%.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 hexmake: out/main.o out/charcount.o out/hexfunctions.o out/xorcipher.o out/detection.o
