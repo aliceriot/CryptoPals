@@ -11,7 +11,7 @@ void main()
 
     char fileLoc[MAXLINE];
     getcwd(fileLoc, MAXLINE);
-    strcat(fileLoc, "/4.txt");
+    strcat(fileLoc, "../hex.txt");
 
     char *stringArray[1000];
     int numLines;
