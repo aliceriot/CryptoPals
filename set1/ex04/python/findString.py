@@ -1,7 +1,10 @@
 import sys
 from hexstring import HexString
 
-filename = sys.argv[1]
+if (len(sys.argv) > 1):
+    filename = sys.argv[1]
+else:
+    filename = "../hex.txt"
 
 with open(filename, 'r') as myfile:
     raw = [line.strip() for line in myfile]
