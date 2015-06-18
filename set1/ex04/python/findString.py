@@ -1,5 +1,6 @@
 import sys
 from hexstring import HexString
+from ctypes import cdll
 
 if (len(sys.argv) > 1):
     filename = sys.argv[1]
@@ -12,4 +13,4 @@ with open(filename, 'r') as myfile:
 
 hexArray = [HexString(i) for i in raw]
 
-
+lib = cdll.LoadLibrary("modules")

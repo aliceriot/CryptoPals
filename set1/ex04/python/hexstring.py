@@ -1,4 +1,3 @@
-
 class HexString:
     def __init__(self, hex):
         self.hexString = hex
