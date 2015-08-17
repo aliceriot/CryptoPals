@@ -3,6 +3,10 @@ class Singlebyte(object):
         self.hexstring = hexstring
         self.bytestring = bytearray.fromhex(hexstring)
         self.onlyascii = True
+        self.potk = list(range(256))
+        self.strings = []
+        self.keyexclude()
+        self.stringexclude()
 
     def ahelp(self, n):
         "returns true if n is a valid ascii character"
@@ -10,20 +14,16 @@ class Singlebyte(object):
             return True
         return False
 
-    def otheridea(self):
+    def keyexclude(self):
         "only those which never fail to produce ascii"
-        potk = list(range(256))
         for b in self.bytestring:
-            temp = list(filter(lambda x: self.ahelp(x ^ b), potk))
-            potk = temp
-        return potk
+            temp = list(filter(lambda x: self.ahelp(x ^ b), self.potk))
+            self.potk = temp
 
-def utility(keys, hexstring):
-    for i in keys:
-        print(''.join(list(map(chr, map(lambda x: x ^ i, hexstring)))))
-
-
-
-
-
+    def stringexclude(self):
+        "we assume there's a space"
+        pos = []
+        for k in self.potk:
+            pos.append(''.join(list(map(chr, map(lambda x: x ^ k, self.bytestring)))))
+        self.strings = list(filter(lambda x: ' ' in x, pos))
 
