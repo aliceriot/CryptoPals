@@ -30,7 +30,7 @@ to get a definition for each word. Then we use a filter to remove the empty
 lists (for words with no definition), and then finally, if our string had real
 words in it, we add it to an array called goodstring.
 
-Great! This gives us an answer.
+Great! This gives us an answer, hooray!
 
 
 
