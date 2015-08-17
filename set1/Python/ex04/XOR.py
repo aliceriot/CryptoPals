@@ -9,7 +9,10 @@ class Singlebyte(object):
         self.stringexclude()
 
     def ahelp(self, n):
-        "returns true if n is a valid ascii character"
+        """
+        returns true if n is a valid ascii character
+        or a newline (10)
+        """
         if n > 31 and n < 127:
             return True
         elif n == 10:
@@ -28,4 +31,7 @@ class Singlebyte(object):
         for k in self.potk:
             pos.append(''.join(list(map(chr, map(lambda x: x ^ k, self.bytestring)))))
         self.strings = list(filter(lambda x: ' ' in x, pos))
+
+    def excludeagain(self):
+        "counting based"
 
