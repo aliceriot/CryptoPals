@@ -1,19 +1,18 @@
 from XOR import Singlebyte
+from textblob import Word
 
 with open('hex.txt') as myfile:
     hexstrings = [x.strip() for x in myfile.readlines()]
 
-possible = []
-poskeys = []
+goodstrings = []
 
 for hexstring in hexstrings:
     temp = Singlebyte(hexstring)
-    strings = temp.strings
-    keys = temp.potk
-    if strings != []:
-        possible.append(strings[:])
-        poskeys.append(keys[:])
+    for string in temp.strings:
+        thing = filter(lambda x: x != [], 
+                map(lambda x: Word(x).define(), string.split(' ')))
+        if (list(thing)) != []:
+            goodstrings.append(string)
 
-
-for enum in enumerate(possible):
-    print("\n {} \n {} \n\n".format(possible[enum[0]], poskeys[enum[0]]))
+for string in goodstrings:
+    print(string)
