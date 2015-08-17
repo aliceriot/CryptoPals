@@ -27,7 +27,7 @@ class HexString:
         self.frequencies.sort()
         self.frequencies.reverse()
 
-        for i in range(10):
+        for i in range(15):
             self.score += (lambda x: (x - english[i])**2)(self.frequencies[i])
 
 
