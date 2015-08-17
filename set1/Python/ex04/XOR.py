@@ -12,6 +12,8 @@ class Singlebyte(object):
         "returns true if n is a valid ascii character"
         if n > 31 and n < 127:
             return True
+        elif n == 10:
+            return True
         return False
 
     def keyexclude(self):
