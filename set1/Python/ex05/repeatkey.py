@@ -12,7 +12,6 @@ class Repeat(object):
             bytesbytes.append(ord(i[1]) ^ self.key[i[0] % len(self.key)])
         self.ciphertext = ''.join(map(chr, binascii.hexlify(bytesbytes)))
 
-
 repeat = Repeat("Burning 'em, if you ain't quick and nimble I go crazy when I hear a cymbal", "ICE")
 repeat.encrypt()
 
