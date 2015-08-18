@@ -9,7 +9,7 @@ goodstrings = []
 for hexstring in hexstrings:
     temp = Singlebyte(hexstring)
     for string in temp.strings:
-        thing = filter(lambda x: x != [], 
+        thing = filter(lambda x: x != [],
                 map(lambda x: Word(x).define(), string.split(' ')))
         if (list(thing)) != []:
             goodstrings.append(string)
