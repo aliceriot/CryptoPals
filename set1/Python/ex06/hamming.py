@@ -10,6 +10,15 @@ def hamminghelp(numtup):
     return result
 
 def distance(strone, strtwo):
+    sumit = 0
+    for pair in zip(map(ord, strone), map(ord, strtwo)):
+        print("pair:", pair)
+        print("dist:", hamminghelp(pair))
+        print("sum:", sumit)
+        sumit += hamminghelp(pair)
+
+
+
     return sum(map(hamminghelp, zip(map(ord, strone), map(ord, strtwo))))
     
 
