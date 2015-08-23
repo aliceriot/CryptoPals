@@ -16,5 +16,3 @@ class Blocks(object):
                     temp.append(self.ciphertext[index])
                     index += k
                 self.blocks[k].append(temp)
-                
-            
