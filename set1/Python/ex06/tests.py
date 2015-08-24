@@ -3,6 +3,7 @@
 import unittest
 from hamming import distance
 from blocks import Blocks
+from base64 import b64decode
 
 class HammingTests(unittest.TestCase):
     def test_example(self):
@@ -11,9 +12,12 @@ class HammingTests(unittest.TestCase):
 class BlockTests(unittest.TestCase):
     def test_working(self):
         with open("./ex06.txt") as f:
-            ctext = ''.join([l.strip() for l in f.readlines()])
+            ctext = b64decode(''.join([l.strip() for l in f.readlines()]))
         testblocks = Blocks(ctext, [2])
         self.assertNotEqual([], testblocks.blocks[2])
+    def test_small_input(self):
+        b = Blocks(bytearray([1,2,3,4]),[2])
+        self.assertEqual(b.blocks[2], [bytearray([1,3]), bytearray([2,4])])
 
 
 if __name__ == '__main__':
