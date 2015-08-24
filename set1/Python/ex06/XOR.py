@@ -8,14 +8,14 @@ class Singlebyte(object):
         self.keyexclude()
         self.freqrank()
 
-    def ahelp(self, key):
+    def ahelp(self, value):
         """
-        Returns true if key is a valid ascii character
+        Returns true if value is a valid ascii character
         or a newline
         """
-        if key > 31 and key < 127:
+        if value > 0 and value < 128:
             return True
-        elif key == 10:
+        elif value == 10:
             return True
         return False
 
