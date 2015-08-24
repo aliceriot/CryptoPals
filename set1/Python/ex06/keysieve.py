@@ -4,7 +4,7 @@ class Keysieve(object):
     def __init__(self, ciphertext, minkey, maxkey):
         self.sizes = []
         self.keys = range(minkey, maxkey+1)
-        self.ctext = bytearray(ciphertext, 'ascii')
+        self.ctext = ciphertext
         self.sieve()
 
     def sieve(self):
