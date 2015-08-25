@@ -1,7 +1,9 @@
+#!/usr/bin/python3
+
 from XOR import Singlebyte
 from decrypt import Decrypt
 
-with open('../ex04/hex.txt') as f:
+with open('./../ex04/hex.txt') as f:
     hexstrings = [bytearray.fromhex(x.strip()) for x in f.readlines()]
 
 possible = []
