@@ -3,48 +3,18 @@ from collections import Counter
 class Singlebyte(object):
     def __init__(self, chunk):
         self.bstr = chunk
-        self.potk = list(range(256))
-        self.keys = {}
-        self.keyexclude()
-        self.freqrank()
+        self.results = []
+        self.keyscore()
+        self.bestkey = max(results, key = lambda x: x[0])
 
-    def ahelp(self, value):
+    def keyscore(self):
         """
-        Returns true if value is a valid ascii character
-        or a newline
+        get the key scores (number of ascii / len(chunk))
+        for all keys, add (score, plaintext) to self.results
         """
-        if value > 0 and value < 128:
-            return True
-        elif value == 10:
-            return True
-        return False
+        for key in range(256):
+            plain = [chr(c ^ key) for c in chunk]
+            score = filter(lambda x: 'a'<=x<='z' or 'A'<=x<='Z', plain)
+            self.results.append((float(len(score)) / len(plain)), ''.join(plain))
 
-    def keyexclude(self):
-        """
-        Exclude all keys which XOR to produce non-ascii
-        characters.
-        """
-        for b in self.bstr:
-            temp = list(filter(lambda x: self.ahelp(x ^ b), self.potk))
-            self.potk = temp
 
-    def freqrank(self):
-        """
-        Compare potential keys to normal english
-        letter frequency. Lowest score is best.
-        """
-        english = {'a': 8.167, 'b': 1.492, 'c': 2.782, 'd': 4.253,
-                'e': 12.702, 'f': 2.228, 'g': 2.015, 'h': 6.094, 
-                'i': 6.966, 'j': 0.153, 'k': 0.772, 'l': 4.025, 
-                'm': 2.406, 'n': 6.749, 'o': 7.507, 'p': 1.929,
-                'q': 0.095, 'r': 5.987, 's': 6.327, 't': 9.056,
-                'u': 2.758, 'v': 0.978, 'w': 2.361, 'x': 0.150,
-                'y': 1.974, 'z': 0.074}
-        for k in self.potk:
-            temp = ''.join(map(chr, map(lambda x: x^k, self.bstr)))
-            freqs = Counter(temp.lower())
-            difference = 0
-            for letter in english.keys():
-                tempfreq = 100 * (freqs[letter] / len(temp))
-                difference += tempfreq - english[letter]
-            self.keys[k] = abs(difference)
