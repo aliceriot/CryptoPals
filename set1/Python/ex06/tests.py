@@ -18,6 +18,9 @@ class BlockTests(unittest.TestCase):
     def test_small_input(self):
         b = Blocks(bytearray([1,2,3,4]),[2])
         self.assertEqual(b.blocks[2], [bytearray([1,3]), bytearray([2,4])])
+    def test_slightly_bigger(self):
+        b = Blocks(bytearray([1,2,3,4,5,6]),[2])
+        self.assertEqual(b.blocks[2], [bytearray([1,3,5]), bytearray([2,4,6])])
 
 
 if __name__ == '__main__':
