@@ -1,4 +1,3 @@
-
 class Decrypt(object):
     """
     take ciphertext and keyarray, perform
