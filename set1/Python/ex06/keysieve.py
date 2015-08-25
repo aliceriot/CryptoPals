@@ -15,13 +15,3 @@ class Keysieve(object):
             scores = [distance(first, i)/ksize for i in rest]
             self.scores.append((ksize, avg(scores)))
         self.scores.sort(key = lambda x: x[1])
-
-    def trialsieve(self):
-        for ksize in self.keys:
-            c = [self.ctext[:ksize]]
-            sizerange = [ksize+i for i in range(int(len(self.ctext) / ksize))]
-            c += [self.ctext[i:ksize+i] for i in sizerange]
-            even = [i[1] for i in enumerate(c) if i[0] % 2 == 0]
-            odd = [i[1] for i in enumerate(c) if i[0] % 2 != 0]
-            score = avg([distance(z[0], z[1])/ksize for z in zip(even, odd)])
-            self.scores.append((ksize, score))
