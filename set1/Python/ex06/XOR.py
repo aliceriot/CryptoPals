@@ -13,6 +13,10 @@ class Singlebyte(object):
         self.bestkey = max(self.keys, key = lambda x: x[1])
 
     def scorekeys(self):
+        """
+        score is numspaces + numuppercase + numlowercase
+        (in common letters)
+        """
         common = 'etaoinshrd'
         for key in range(256):
             plain = ''.join(map(lambda c: chr(c^key), self.ctext))
