@@ -15,4 +15,4 @@ with open("./ex06.txt") as f:
 # keysieve finds probable keysizes (using hamming distance)
 keysieve = Keysieve(ciphertext, 2, 40)
 
-
+#create blocks for the 4 best scoring keysize (5, 3, 2, 13)

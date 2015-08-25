@@ -13,7 +13,7 @@ class Keysieve(object):
             first = self.ctext[:ksize]
             second = self.ctext[ksize:2*ksize]
             self.scores.append((ksize, distance(first, second) / ksize))
-
+            self.scores.sort(key = lambda x: x[1])
 
     def trialsieve(self):
         for ksize in self.keys:
