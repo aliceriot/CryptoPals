@@ -1,33 +1,23 @@
+"""
+provides the Singlebyte class, which breaks 
+single-byte XOR
+"""
+
 from collections import Counter
 
 class Singlebyte(object):
     def __init__(self, chunk):
-        self.bstr = chunk
-        self.results = []
-        self.keyscore()
-        print(chunk)
-        self.bestkey = max(self.results, key = lambda x: x[0])[1]
+        self.ctext = chunk
+        self.keys = []
+        self.scorekeys()
+        self.bestkey = max(self.keys, key = lambda x: x[1])
 
-    def keyscore_old(self):
-        """
-        get the key scores (number of ascii / len(chunk))
-        for all keys, add (score, plaintext) to self.results
-        """
+    def scorekeys(self):
+        common = 'etaoinshrd'
         for key in range(256):
-            plain = [chr(c ^ key) for c in self.bstr]
-            score = list(filter(lambda x: 'a'<=x<='z' or 'A'<=x<='Z', plain))
-            self.results.append((float(len(score)) / len(plain), 
-                key, ''.join(plain)))
-
-    def keyscore(self):
-        common = 'ETAONRISHDL'
-        for key in range(256):
-            plain = [chr(c^key) for c in self.bstr]
+            plain = ''.join(map(lambda c: chr(c^key), self.ctext))
             spaces = plain.count(' ')
-            upper = sum(plain.count(c) for c in common)
-            lower = sum(plain.count(c) for c in common.lower())
-            self.results.append((spaces + upper + lower, key))
-
-
-            
+            upper = sum(plain.count(c) for c in common.upper())
+            lower = sum(plain.count(c) for c in common)
+            self.keys.append((key, spaces + upper + lower))
 

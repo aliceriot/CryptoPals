@@ -10,10 +10,10 @@ possible = []
 
 for hexstring in hexstrings:
     temp = Singlebyte(hexstring)
-    decrypt = Decrypt(hexstring, [temp.bestkey])
-    possible.append(decrypt.plaintext)
+    possible.append((temp.bestkey, hexstring))
+    # decrypt = Decrypt(hexstring, [temp.bestkey])
+    # possible.append(decrypt.plaintext)
 
-
-with open('./test.txt', 'w') as f:
-    for pos in possible:
-        f.write(pos)
+best = max(possible, key = lambda x: x[0][1])
+decrypt = Decrypt(best[1], [best[0][0]])
+print(decrypt.plaintext)
