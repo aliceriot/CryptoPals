@@ -22,12 +22,11 @@ for k in blocks.keysizes:
     key = bytearray()
     for b in blocks.blocks[k]:
         temp = Singlebyte(b)
-        if {} != temp.keys:
-            key.append(min(temp.keys, key=lambda x: temp.keys[x]))
-    if key != bytearray():
-        decrypt = Decrypt(ciphertext, key)
-        potentials.append(decrypt.plaintext)
+        print(temp.results)
+        key.append(temp.bestkey)
+    decrypt = Decrypt(ciphertext, key)
+    potentials.append(decrypt.plaintext)
 
-for string in potentials:
-    if ' ' in string:
-        print(string)
+with open('test.txt', 'w') as f:
+    for pot in potentials:
+        f.write(pot)
