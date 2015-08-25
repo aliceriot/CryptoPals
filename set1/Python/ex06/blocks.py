@@ -3,7 +3,7 @@ class Blocks(object):
     """takes ciphertext and best keysizes, makes blocks"""
     def __init__(self, ciphertext, keysizes):
         self.ciphertext = ciphertext
-        self.keysizes = keysizes #list
+        self.keysizes = [x[0] for x in keysizes]
         self.blocks = {k: [] for k in self.keysizes}
         self.blockify()
 

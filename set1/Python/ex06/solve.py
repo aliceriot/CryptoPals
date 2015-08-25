@@ -16,4 +16,4 @@ with open("./ex06.txt") as f:
 keysieve = Keysieve(ciphertext, 2, 40)
 
 #create blocks for the 4 best scoring keysize (5, 3, 2, 13)
-
+blocks = Blocks(ciphertext, keysieve.scores[:4])
