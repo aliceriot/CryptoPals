@@ -35,3 +35,31 @@ even again information about file contents. Yikes!
 
 ##How do we detect?
 
+Well, the [problem description](http://cryptopals.com/sets/1/challenges/8/)
+gives us a hint that the blocksize is 16. So basically what we're going to do
+is look for any ciphertexts in our input file (`ex08.txt`) which have repeated,
+16-byte blocks in them. I wrote a class called `ECBDetector` which lets us do
+that. Then we can read in the file line-by-line, score the number of repeating
+blocks, and print the result. This is what `detect.py` does:
+
+```Python
+from ECB import ECBDetector
+
+with open("./ex08.txt") as f:
+    hexstrings = [x.strip() for x in f.readlines()]
+
+goodscores = []
+for hexstring in hexstrings:
+    temp = ECBDetector(hexstring)
+    if temp.score > 0:
+        goodscores.append((temp.score, hexstring))
+
+score, hexstring = goodscores[0]
+
+print("The best scoring ciphertext:\n{}\nWith {} repeating blocks."\
+        .format(hexstring, score))
+```
+
+Great! We get just one hexstring out. I think we have to assume this is right,
+Matasano doesn't publish specific answers so I'm not sure how to check. Ah
+well!
