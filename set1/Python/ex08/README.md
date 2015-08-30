@@ -19,7 +19,7 @@ encryption operation is. This looks like this (thanks wikipedia!):
 So any block cipher can be used in ECB mode. Great! How flexible! Chopping
 the message up into separate blocks, each of which is encrypted
 independently, also means that the encryption operation can be
-parallelized (since the encryption of any blocks depends only upon that
+parallelized (since the encryption of any block depends only upon that
 block's plaintext).
 
 ECB has a fatal flaw though - this separate encryption means that if your
