@@ -9,5 +9,7 @@ for hexstring in hexstrings:
     if temp.score > 0:
         goodscores.append((temp.score, hexstring))
 
+score, hexstring = goodscores[0]
+
 print("The best scoring ciphertext:\n{}\nWith {} repeating blocks."\
-        .format(goodscores[0][1], goodscores[0][0]))
+        .format(hexstring, score))
