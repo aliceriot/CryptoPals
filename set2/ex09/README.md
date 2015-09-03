@@ -19,3 +19,11 @@ bytes of padding to the end of the block. For instance,
 "YELLOW SUBMARINE\x04\x04\x04\x04"
 ```
 
+##Solution
+
+I did two quick solutions, one in Ruby and one in Python. They are pretty
+similar (perhaps not surprising). Both define a class called Pkcs7 which
+can be initialized with a plaintext and a padded length, and both have
+a method called `pad` which pads out the plaintext.
+
+Great!
