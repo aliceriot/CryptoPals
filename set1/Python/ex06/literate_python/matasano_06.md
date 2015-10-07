@@ -1,0 +1,46 @@
+#Matasano exercise 06
+
+This is a literate Python explanation of my solution to the
+[sixth](http://cryptopals.com/sets/1/challenges/6/) Matasano problem. Here we
+have a message which has been encrypted with repeating-key XOR (which is, more
+or less, the Vigenere's cipher). It's encoded in Base64, and we want to figure
+out how to read it! Great! How do?
+
+Well, actually the Matasano folks give us a really nice explanation of how to
+proceed. Basically I'm going to take their overview, modify it somewhat, and
+intersperse the code that performs that step. Cool!
+
+##KEYSIZE
+
+Keysize is the length of the key. Since this is the repeating-key XOR
+cryptosystem this is basically the number of bytes in a key. A message is
+encrypted by XORing character `i` with `key[i % keysize]`, so for a keysize of
+4 the fourth, eight, twelfth, and so on characters will all be XORed with the
+fourth byte of the key (and same for the first, fifth, ninth, etc. with the
+first byte of the key).
+
+Matasano lets us know that we only have to worry about keysize ranging between
+2 and 40 (they're so helpful with the hints sometimes!). So we'll need some way
+to figure out the most appropriate keysize - once we know that we can get to
+the business of figuring out the key.
+
+##Hamming Distance
+
+Hamming distance is a metric for *string difference*, and in this case we want
+to essentially count the number of bits where two strings (C-style bytestrings)
+are different.
+
+Here's a little function to do that:
+
+
+~~~~{.python}
+def distance(s1, s2):
+    return sum(bin(x^y).count('1') for x,y in zip(s1,s2))
+~~~~~~~~~~~~~
+
+
+
+Ok, so we zip string one and string two together, then we XOR them (which
+will leave ones wherever they differ), using `bin` to get a string
+representation of that, and then count the number of ones. If we sum this
+across `zip(s1,s2)` we get our difference. Nice!
