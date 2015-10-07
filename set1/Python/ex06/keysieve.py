@@ -10,7 +10,6 @@ class Keysieve(object):
 
     def sieve(self):
         for ksize in self.keys:
-            first = self.ctext[:ksize]
             rest = [self.ctext[i*ksize:(i+1)*ksize] for i in range(10)]
             scores = [distance(first, i)/ksize for i in rest]
             self.scores.append((ksize, avg(scores)))
