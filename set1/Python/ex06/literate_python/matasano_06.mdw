@@ -10,14 +10,20 @@ Well, actually the Matasano folks give us a really nice explanation of how to
 proceed. Basically I'm going to take their overview, modify it somewhat, and
 intersperse the code that performs that step. Cool!
 
+First off, we'll need this later:
+
+<<>>=
+from base64 import b64decode
+@
+
 ##KEYSIZE
 
 Keysize is the length of the key. Since this is the repeating-key XOR
 cryptosystem this is basically the number of bytes in a key. A message is
 encrypted by XORing character `i` with `key[i % keysize]`, so for a keysize of
-4 the fourth, eight, twelfth, and so on characters will all be XORed with the
-fourth byte of the key (and same for the first, fifth, ninth, etc. with the
-first byte of the key).
+4 the fourth, eighth, twelfth, and so on characters will all be XORed with
+the fourth byte of the key (and same for the first, fifth, ninth, etc.
+with the first byte of the key).
 
 Matasano lets us know that we only have to worry about keysize ranging between
 2 and 40 (they're so helpful with the hints sometimes!). So we'll need some way
@@ -41,3 +47,13 @@ Ok, so we zip string one and string two together, then we XOR them (which
 will leave ones wherever they differ), using `bin` to get a string
 representation of that, and then count the number of ones. If we sum this
 across `zip(s1,s2)` we get our difference. Nice!
+
+##Finding the right KEYSIZE
+
+OK, now that we've defined the Hamming distance, we can use that to find
+an appropriate keysize with which to move forward. Basically, we expect
+that if we have the right keysize, then if we chunk the ciphertext into
+blocks of `keysize` length, we should see a lower Hamming distance between
+those chunks than we would between chunks of a randomly selected length.
+This is because if we have `keysize` correct, then those chunks will have
+been XORed against the same block, and so will have that in common. Great!
