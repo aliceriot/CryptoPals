@@ -77,8 +77,7 @@ class Keysieve(object):
 
     def sieve(self):
         for ksize in self.keys:
-            chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in
-range(10)]
+            chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in range(10)]
             scores = [distance(first, i)/ksize for i in rest]
             self.scores.append((ksize, avg(scores)))
         self.scores.sort(key = lambda x: x[1])
