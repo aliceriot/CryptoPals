@@ -58,7 +58,7 @@ those chunks than we would between chunks of a randomly selected length.
 This is because if we have `keysize` correct, then those chunks will have
 been XORed against the same block, and so will have that in common. Great!
 
-This is a class I have named `keysieve` which does this for us:
+This is a class named `keysieve` which does this for us:
 
 <<>>=
 class Keysieve(object):
@@ -70,8 +70,9 @@ class Keysieve(object):
 
     def sieve(self):
         for ksize in self.keys:
+            first = self.ctext[:ksize]
             chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in range(10)]
-            scores = [distance(first, i)/ksize for i in rest]
+            scores = [distance(first, i)/ksize for i in chunks]
             self.scores.append((ksize, avg(scores)))
         self.scores.sort(key = lambda x: x[1])
 @
