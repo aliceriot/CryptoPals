@@ -14,14 +14,14 @@ with open("./ex06.txt") as f:
 
 # keysieve finds probable keysizes (using hamming distance)
 keysieve = Keysieve(ciphertext, 2, 40)
-keysize = keysieve.scores[0]
+keysize = keysieve.scores[0][0]
 
 # create blocks for the best keysize
-blocks = Blocks(ciphertext, [keysize])
+blocks = Blocks(ciphertext, keysize)
 
 # generate the key
 key = bytearray()
-for block in blocks.blocks[keysize[0]]:
+for block in blocks.blocks:
     temp = Singlebyte(block)
     key.append(temp.bestkey[0])
 
