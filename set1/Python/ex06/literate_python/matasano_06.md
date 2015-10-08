@@ -26,8 +26,7 @@ First off, we'll read in the ciphertext:
 from base64 import b64decode
 
 with open("./ex06.txt") as f:
-    ciphertext = b64decode(''.join([l.strip() for l in
-f.readlines()]))
+    ciphertext = b64decode(''.join([l.strip() for l in f.readlines()]))
 ~~~~~~~~~~~~~
 
 
@@ -96,8 +95,7 @@ class Keysieve(object):
     def sieve(self):
         for ksize in self.keys:
             first = self.ctext[:ksize]
-            chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in
-range(10)]
+            chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in range(10)]
             scores = [distance(first, i)/ksize for i in chunks]
             self.scores.append((ksize, mean(scores)))
         self.scores.sort(key = lambda x: x[1])
