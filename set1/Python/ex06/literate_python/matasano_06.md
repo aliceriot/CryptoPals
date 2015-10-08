@@ -57,7 +57,7 @@ def distance(s1, s2):
 
 
 Ok, so we zip string one and string two together, then we XOR them (which
-will leave ones wherever they differ), using `bin` to get a string
+will leave ones wherever they differ), use `bin` to get a string
 representation of that, and then count the number of ones. If we sum this
 across `zip(s1,s2)` we get our difference. Nice!
 
@@ -71,7 +71,7 @@ those chunks than we would between chunks of a randomly selected length.
 This is because if we have `keysize` correct, then those chunks will have
 been XORed against the same block, and so will have that in common. Great!
 
-This is a class named `keysieve` which does this for us:
+This is a class named `Keysieve` which does this for us:
 
 
 ~~~~{.python}
@@ -120,7 +120,7 @@ Then we can get our putative best keysize by doing:
 
 
 ~~~~{.python}
-keysize = keysieve.scores[0]
+keysize = keysieve.scores[0][0]
 ~~~~~~~~~~~~~
 
 
@@ -138,4 +138,38 @@ Then we have a block which is constructed from the first byte from every
 `keysize` chunk, the second byte from every `keysize` chunk, and so on.
 Then we can take those blocks and, since they've all been XORed with the
 same byte of the key, we can solve them each independently as if they were
-separate ciphertexts encrypted with single byte XOR.
+separate ciphertexts encrypted with single byte XOR. Great!
+
+###Making the blocks
+
+Here's how we'll make the blocks (naturally, with a class called
+`Blocks`):
+
+
+~~~~{.python}
+class Blocks(object):
+    """takes ciphertext and best keysizes, makes blocks"""
+    def __init__(self, ciphertext, keysize):
+        self.ciphertext = ciphertext
+        self.keysize = keysize
+        self.blocks = [[] for i in range(self.keysize)]
+        self.blockify()
+
+    def blockify(self):
+        for tup in enumerate(self.ciphertext):
+            self.blocks[tup[0] % self.keysize].append(tup[1])
+        map(bytearray, self.blocks)
+~~~~~~~~~~~~~
+
+
+
+Now we can make the blocks! Weee!
+
+
+~~~~{.python}
+blocks = Blocks(ciphertext, keysize)
+~~~~~~~~~~~~~
+
+
+
+
