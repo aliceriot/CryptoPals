@@ -101,3 +101,42 @@ work on.
 Lets instantiate a `Keysieve` object now:
 
 
+~~~~{.python}
+keysieve = Keysieve(ciphertext, 2,40)
+~~~~~~~~~~~~~
+
+~~~~{.python}
+<class 'NameError'>
+name 'avg' is not defined
+~~~~~~~~~~~~~
+
+
+
+Great! When we instantiate the object the `sieve` method gets called
+automatically. This is going to iterate through the possible keysizes and,
+for each one, calculate the average pairwise Hamming distance between the
+first chunk of size `keysize` and all other chunks. We assume that the
+keysize that results in the lowest score will be our winner, so then we
+call the `sort` method on `keysieve.scores`.
+
+Then we can get our putative best keysize by doing:
+
+
+~~~~{.python}
+keysize = keysieve.scores[0]
+~~~~~~~~~~~~~
+
+~~~~{.python}
+<class 'NameError'>
+name 'keysieve' is not defined
+~~~~~~~~~~~~~
+
+
+
+##Breaking up the Ciphertext
+
+Now that we know the `keysize` we can get on with solving the problem.
+First we want to split the ciphertext up into `keysize` different blocks,
+where each block is composed of the bytes in the ciphertext whose
+remainder modulo `keysize` is a particular number. So there will be
+a block of all those bytes whose index modulo `keysize`
