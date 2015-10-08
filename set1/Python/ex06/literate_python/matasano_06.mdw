@@ -232,10 +232,15 @@ Here's how we'd find the final answer:
 
 <<>>=
 decrypt = Decrypt(ciphertext, key)
+@
 
+Then we could get the plaintext out by doing:
+
+```
 print("The key was: {}".format(''.join(map(chr, key))))
 print("Plaintext:")
 print(decrypt.plaintext)
-@
+```
 
-Whew!
+but I don't want to spoil *everything* for you, at least go run this code
+yourself!
