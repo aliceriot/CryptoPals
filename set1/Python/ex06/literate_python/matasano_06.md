@@ -75,6 +75,8 @@ This is a class named `keysieve` which does this for us:
 
 
 ~~~~{.python}
+from statistics import mean
+
 class Keysieve(object):
     def __init__(self, ciphertext, minkey, maxkey):
         self.scores = []
@@ -88,7 +90,7 @@ class Keysieve(object):
             chunks = [self.ctext[i*ksize:(i+1)*ksize] for i in
 range(10)]
             scores = [distance(first, i)/ksize for i in chunks]
-            self.scores.append((ksize, avg(scores)))
+            self.scores.append((ksize, mean(scores)))
         self.scores.sort(key = lambda x: x[1])
 ~~~~~~~~~~~~~
 
@@ -103,11 +105,6 @@ Lets instantiate a `Keysieve` object now:
 
 ~~~~{.python}
 keysieve = Keysieve(ciphertext, 2,40)
-~~~~~~~~~~~~~
-
-~~~~{.python}
-<class 'NameError'>
-name 'avg' is not defined
 ~~~~~~~~~~~~~
 
 
@@ -126,11 +123,6 @@ Then we can get our putative best keysize by doing:
 keysize = keysieve.scores[0]
 ~~~~~~~~~~~~~
 
-~~~~{.python}
-<class 'NameError'>
-name 'keysieve' is not defined
-~~~~~~~~~~~~~
-
 
 
 ##Breaking up the Ciphertext
@@ -139,4 +131,11 @@ Now that we know the `keysize` we can get on with solving the problem.
 First we want to split the ciphertext up into `keysize` different blocks,
 where each block is composed of the bytes in the ciphertext whose
 remainder modulo `keysize` is a particular number. So there will be
-a block of all those bytes whose index modulo `keysize`
+a block of all those bytes whose index modulo `keysize` is 0, all those
+whose index modulo `keysize` is 1, and so on, up to `keysize -1`.
+
+Then we have a block which is constructed from the first byte from every
+`keysize` chunk, the second byte from every `keysize` chunk, and so on.
+Then we can take those blocks and, since they've all been XORed with the
+same byte of the key, we can solve them each independently as if they were
+separate ciphertexts encrypted with single byte XOR.
