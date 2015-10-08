@@ -1,10 +1,19 @@
 #Matasano exercise 06
 
-This is a literate Python explanation of my solution to the
-[sixth](http://cryptopals.com/sets/1/challenges/6/) Matasano problem. Here we
-have a message which has been encrypted with repeating-key XOR (which is, more
-or less, the Vigenere's cipher). It's encoded in Base64, and we want to figure
-out how to read it! Great! How do?
+This is a literate Python explanation of [my
+solution](https://github.com/aliceriot/CryptoPals/tree/master/set1/Python/ex06)
+to the [sixth](http://cryptopals.com/sets/1/challenges/6/) Matasano
+problem.
+
+Needless to say, if you are doing the challenges yourself, you should not
+read this! It will make it far too easy. If, however, you've been stuck on
+this question, you may find this helpful!
+
+##The Problem
+
+Here we have a message which has been encrypted with repeating-key XOR
+(which is, more or less, the Vigenere's cipher). It's encoded in Base64,
+and we want to figure out how to read it! Great! How do?
 
 Well, actually the Matasano folks give us a really nice explanation of how to
 proceed. Basically I'm going to take their overview, modify it somewhat, and
