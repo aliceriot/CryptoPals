@@ -149,4 +149,93 @@ Now we can make the blocks! Weee!
 blocks = Blocks(ciphertext, keysize)
 @
 
+Cool, we have `blocks`.
 
+##Solving the Blocks
+
+As we said above, we now have a bunch of blocks, each of which we can
+solve in the same way we solved single byte XOR. Basically we're going to
+rely on a couple of assumptions about what a *correct* key will look like.
+
+First off, we assume that a correct key will, when XORed with the
+ciphertext, produce a readable message. Readable messages, in general,
+consist of ASCII characters like letters, spaces, and so on.
+
+I tried out a bunch of different scoring schemes for this step, and this
+is what gave me the best result:
+
+<<>>=
+from collections import Counter
+
+class Singlebyte(object):
+    def __init__(self, block):
+        self.ctext = block
+        self.keys = []
+        self.scorekeys()
+        self.bestkey = max(self.keys, key = lambda x: x[1])
+
+    def scorekeys(self):
+        common = 'etaoinshrd'
+        for key in range(256):
+            plain = ''.join(map(lambda c: chr(c^key), self.ctext))
+            spaces = plain.count(' ')
+            upper = sum(plain.count(c) for c in common.upper())
+            lower = sum(plain.count(c) for c in common)
+            self.keys.append((key, spaces + upper + lower))
+@
+
+So our `scorekeys` method will score a key by adding the number of
+spaces to the number of upper and lower case examples of the letters
+`etaoinshrd`.
+
+Seems random right? I thought so too, but it does work!
+
+Anyway, to get a key we do this:
+
+<<>>=
+key = bytearray()
+for block in blocks.blocks:
+    temp = Singlebyte(block)
+    key.append(temp.bestkey[0])
+@
+
+So we iterate through our blocks, solving each one using `Singlebyte`, and
+appending the best key to a master key. We're almost there now!
+
+##Decrypting the Ciphertext
+
+Now that we have the correct key we want to use it to get the plaintext
+for our ciphertext. I promise this is the last class definition you need
+to read:
+
+<<>>=
+class Decrypt(object):
+    def __init__(self, ciphertext, key):
+        self.ctext = ciphertext
+        self.key = key
+        self.plaintext = ''
+        self.decrypt()
+
+    def decrypt(self):
+        temp = []
+        for i in enumerate(self.ctext):
+            temp.append(i[1] ^ self.key[i[0] % len(self.key)])
+        self.plaintext = ''.join(map(chr, temp))
+@
+
+So we pass in the ciphertext and the newly minted key. Then we have
+a `decrypt` method which is going to iterate through the ciphertext and
+XOR character `i` with `key[i % keysize]`. If all goes well, we will have
+a plaintext message waiting for us!
+
+Here's how we'd find the final answer:
+
+<<>>=
+decrypt = Decrypt(ciphertext, key)
+
+print("The key was: {}".format(''.join(map(chr, key))))
+print("Plaintext:")
+print(decrypt.plaintext)
+@
+
+Whew!
