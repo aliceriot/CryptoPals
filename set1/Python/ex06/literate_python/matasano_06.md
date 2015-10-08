@@ -10,14 +10,21 @@ Well, actually the Matasano folks give us a really nice explanation of how to
 proceed. Basically I'm going to take their overview, modify it somewhat, and
 intersperse the code that performs that step. Cool!
 
-First off, we'll need this later:
+First off, we'll read in the ciphertext:
 
 
 ~~~~{.python}
 from base64 import b64decode
+
+with open("./ex06.txt") as f:
+    ciphertext = b64decode(''.join([l.strip() for l in
+f.readlines()]))
 ~~~~~~~~~~~~~
 
 
+
+We read in the file line-by-line, strip off newlines, and join all the
+cleaned lines together. The `b64decode` function returns a `bytes` object.
 
 ##KEYSIZE
 
@@ -84,5 +91,13 @@ range(10)]
             self.scores.append((ksize, avg(scores)))
         self.scores.sort(key = lambda x: x[1])
 ~~~~~~~~~~~~~
+
+
+
+The constructor for `Keysieve` takes a minkey and a maxkey, which are the
+bounds on our keysize search space. We also need to have a ciphertext to
+work on.
+
+Lets instantiate a `Keysieve` object now:
 
 
