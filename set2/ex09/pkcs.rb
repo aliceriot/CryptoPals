@@ -1,5 +1,6 @@
 class Pkcs7
   attr_reader :plaintext
+
   def initialize(plaintext, padded_length)
     @plaintext = plaintext.bytes
     @padded_length = padded_length
