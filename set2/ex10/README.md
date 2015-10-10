@@ -13,3 +13,8 @@ Here's what Wikipedia has to say:
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/CBC_decryption.svg/601px-CBC_decryption.svg.png)
 
 Cool.
+
+##What do we need to do?
+
+We have a file (`10.txt`) which we can read once we perform CBC with the
+initialization vector `\x00\x00\x00` and the phrase `YELLOW SUBMARINE`.
