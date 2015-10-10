@@ -6,14 +6,15 @@ int main()
 
     cbc->iv = getenv("iv");
     cbc->key = getenv("key");
-    cbc->plaintext = getenv("plaintext");
+    cbc->ciphertext = getenv("ciphertext");
 
-    char result[strlen(cbc->plaintext)];
-    cbc_encrypt(cbc, result);
+    char plaintext[strlen(cbc->ciphertext)];
+    cbc->plaintext = plaintext;
 
-    /* printf("%s\n", result); */
+    cbc_decrypt(cbc);
 
-    printf("%d\n", strlen(cbc->key));
-    printf("%d\n", strlen(cbc->iv));
-    printf("%d\n", strlen(cbc->plaintext));
+    /* printf("%s\n", cbc->plaintext); */
+
+    for (size_t i = 0; i < strlen(cbc->plaintext); i++)
+        printf("%d\t", cbc->plaintext[i]);
 }
