@@ -3,11 +3,17 @@
 #include <math.h>
 #include <stdlib.h>
 
+// this will before CBC block encryption/decryption with repeating-key
+// XOR (Vigenere's cipher).
+//
+// Input to the `cbc_cipher` struct should already be decoded (e.g. from
+// base64, hex, etc).
+
 typedef struct cbc_cipher {
-    char *iv;
-    char *key;
-    char *plaintext;
-    char *ciphertext;
+    unsigned char *iv;
+    unsigned char *key;
+    unsigned char *plaintext;
+    unsigned char *ciphertext;
 } cbc_cipher;
 
 void cbc_encrypt(cbc_cipher *cbc)

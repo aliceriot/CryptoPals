@@ -1,12 +1,18 @@
 #include "matasano.h"
+#include <glib.h>
 
 int main()
 {
     cbc_cipher *cbc = malloc(sizeof (cbc_cipher));
 
+    unsigned char *base_64 = getenv("ciphetext");
+    guchar *decoded_ciphertext;
+    size_t *decoded_length;
+    decoded_ciphertext = g_base64_decode(base_64, decoded_length);
+
     cbc->iv = getenv("iv");
     cbc->key = getenv("key");
-    cbc->ciphertext = getenv("ciphertext");
+    cbc->ciphertext = decoded_ciphertext;
 
     char plaintext[strlen(cbc->ciphertext)];
     cbc->plaintext = plaintext;
