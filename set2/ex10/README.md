@@ -18,3 +18,5 @@ Cool.
 
 We have a file (`10.txt`) which we can read once we perform CBC with the
 initialization vector `\x00\x00\x00` and the phrase `YELLOW SUBMARINE`.
+We'll do the actual decryption with AES-128 in ECB mode, and our own code
+will handle building CBC mode on top of that.
