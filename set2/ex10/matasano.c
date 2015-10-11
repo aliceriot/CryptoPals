@@ -7,7 +7,6 @@ int main()
     guchar *decoded_ciphertext;
     gsize decoded_length;
 
-
     if (encoded_ciphertext == 0) {
         printf("error loading ciphertext\n");
         return 1;
@@ -28,14 +27,10 @@ int main()
     unsigned char plaintext[decoded_length];
     cbc->plaintext = plaintext;
     cbc->input_length = decoded_length;
-    
-    printf("%d\n", decoded_length);
-
     cbc_decrypt(cbc);
 
     printf("%s\n", cbc->plaintext);
 
     free(cbc);
-
     g_free(decoded_ciphertext);
 }

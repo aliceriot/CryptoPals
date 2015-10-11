@@ -2,7 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-#include <openssl/aes.h>
+#include <openssl/ssl.h>
 
 // this will perform CBC block encryption/decryption with AES-128
 // We're using OpenSSL in EBC mode.
@@ -21,18 +21,40 @@ typedef struct cbc_cipher {
 void cbc_decrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs decryption
 
-    // we're going to do something with this!
+    unsigned char buffer[16];
+    size_t i;
+    int outlen;
+
+    // openssl 
     EVP_CIPHER_CTX ctx;
-
     EVP_CIPHER_CTX_init(&ctx);
-    EVP_DecryptInit_ex(&ctx, EVP_aes_128_ecb(), cbc->key, cbc->iv);
+    EVP_DecryptInit_ex(&ctx, EVP_aes_128_ecb(), NULL, cbc->key, NULL);
 
-    /* size_t key_length = strlen(cbc->key); */
+    for (i = 0; i < cbc->input_length; i++) {
+        if ((i % 16 == 0) && (i > 0)) {
+            // we're at the dividing line between two blocks
+            // do the aes and the CBC stuff
+            EVP_DecryptUpdate(&ctx, &cbc->plaintext[i-16], &outlen, buffer, 16);
+            
+            if (i == 16) {
+                for (int j=0; j < 16; j++) {
+                    cbc->plaintext[j] = cbc->plaintext[j] ^ cbc->iv[j];
+                }
+            }
+            else {
+                for (int j = i-16; j < i; j++) {
+                    cbc->plaintext[j] = cbc->plaintext[j] ^ cbc->ciphertext[j-16];
+                }
+            }
+        }
+        buffer[i%16] = cbc->ciphertext[i];
+    }
 
-    /* for (size_t i=0; i < cbc->input_length; i++) { */
-    /*     if (i < key_length) */
-    /*         cbc->plaintext[i] = cbc->ciphertext[i] ^ cbc->iv[i] ^ cbc->key[i]; */
-    /*     else */
-    /*         cbc->plaintext[i] = cbc->ciphertext[i] ^ cbc->ciphertext[i-16] ^ cbc->key[i%16]; */
-    /* } */
+
+
+    // make a buffer
+    // decrypt 16 bytes at a type
+    // XOR with previous 16 bytes or iv
+    // add to growing decrypted ciphertext
+
 }
