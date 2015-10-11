@@ -33,4 +33,5 @@ int main()
 
     free(cbc);
     g_free(decoded_ciphertext);
+
 }
