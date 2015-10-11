@@ -33,9 +33,11 @@ void cbc_encrypt(cbc_cipher *cbc)
 void cbc_decrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs encryption
 
+    printf("in the function");
     size_t key_length = strlen(cbc->key);
 
     for (size_t i=0; i < cbc->input_length; i++) {
+        printf("got here: %d\t", i);
         if (i < key_length)
             cbc->plaintext[i] = cbc->ciphertext[i] ^ cbc->iv[i] ^ cbc->key[i];
         else
