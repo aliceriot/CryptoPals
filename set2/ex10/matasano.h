@@ -21,46 +21,23 @@ typedef struct cbc_cipher {
 void cbc_decrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs decryption
 
-    unsigned char inbuffer[16];
-    unsigned char outbuffer[32];
     size_t i;
     int outlen;
+    unsigned char buffer[cbc->input_length];
 
     // openssl 
     EVP_CIPHER_CTX ctx;
     EVP_CIPHER_CTX_init(&ctx);
     EVP_DecryptInit_ex(&ctx, EVP_aes_128_ecb(), NULL, cbc->key, NULL);
-    int block = 1;
+
+    EVP_DecryptUpdate(&ctx, buffer, &outlen, cbc->ciphertext, cbc->input_length);
 
     for (i = 0; i < cbc->input_length; i++) {
-        if ((i % 16 == 0) && (i > 0)) {
-            // we're at the dividing line between two blocks
-            // do the aes and the CBC stuff
-            EVP_DecryptUpdate(&ctx, outbuffer, &outlen, inbuffer, 16);
-            
-            if (i == 16) {
-                for (int j=0; j < 16; j++) {
-                    cbc->plaintext[j] = outbuffer[j] ^ cbc->iv[j];
-                }
-            }
-            else {
-                for (int j = i-16; j < i; j++) {
-                    cbc->plaintext[j] = outbuffer[j] ^ cbc->ciphertext[j-16];
-                }
-                /* for (int j = 0; j < 16; j++) { */
-                /*     cbc->plaintext[i - 16 + j] = outbuffer[j] ^ cbc->ciphertext[i-32+j]; */
-                /* } */
-            }
-            printf("block %d\t", block++);
+        if (i < 16) {
+            cbc->plaintext[i] = buffer[i] ^ cbc->iv[i];
         }
-        inbuffer[i%16] = cbc->ciphertext[i];
+        else {
+            cbc->plaintext[i] = buffer[i] ^ cbc->ciphertext[i -16];
+        }
     }
-
-
-
-    // make a buffer
-    // decrypt 16 bytes at a type
-    // XOR with previous 16 bytes or iv
-    // add to growing decrypted ciphertext
-
 }

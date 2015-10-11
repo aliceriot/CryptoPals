@@ -29,6 +29,7 @@ int main()
     cbc->input_length = decoded_length;
     cbc_decrypt(cbc);
 
+    printf("plaintext:\n");
     printf("%s\n", cbc->plaintext);
 
     free(cbc);
