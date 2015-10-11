@@ -20,7 +20,6 @@ typedef struct cbc_cipher {
 void cbc_encrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs encryption
 
-    size_t msg_length = strlen(cbc->plaintext);
     size_t key_length = strlen(cbc->key);
     
     for (size_t i=0; i < cbc->input_length; i++) {
@@ -34,11 +33,8 @@ void cbc_encrypt(cbc_cipher *cbc)
 void cbc_decrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs encryption
 
-    size_t msg_length = strlen(cbc->ciphertext);
     size_t key_length = strlen(cbc->key);
 
-    printf("%d\t%d\n", msg_length, key_length);
-    
     for (size_t i=0; i < cbc->input_length; i++) {
         if (i < key_length)
             cbc->plaintext[i] = cbc->ciphertext[i] ^ cbc->iv[i] ^ cbc->key[i];

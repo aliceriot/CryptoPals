@@ -7,18 +7,19 @@ int main()
     guchar *decoded_ciphertext;
     gsize decoded_length;
 
+    if (encoded_ciphertext == 0)
+        return 1;
+
     decoded_ciphertext = g_base64_decode(encoded_ciphertext, &decoded_length);
 
-    size_t i;
-    for (i=0; i < decoded_length; i++) {
-        printf("%d\t", decoded_ciphertext[i]);
-    }
-
-    printf("\n\nlength: %d\n", i);
-
     cbc_cipher *cbc = malloc(sizeof (cbc_cipher));
-    cbc->iv = getenv("iv");
+    cbc->iv = (unsigned char) getenv("iv");
     cbc->key = getenv("key");
+
+    if (cbc->iv == 0 || cbc->key == 0)
+        return 1;
+
+
     cbc->ciphertext = decoded_ciphertext;
     unsigned char plaintext[decoded_length];
     cbc->plaintext = plaintext;
@@ -28,8 +29,6 @@ int main()
 
     printf("%s\n", cbc->plaintext);
 
-    /* for (size_t i = 0; i < strlen(cbc->plaintext); i++) */
-    /*     printf("%d\t", cbc->plaintext[i]); */
-    /* g_free(decoded_ciphertext); */
-    /* free(cbc); */
+    free(cbc);
+    g_free(decoded_ciphertext);
 }
