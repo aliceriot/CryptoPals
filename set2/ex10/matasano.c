@@ -15,7 +15,13 @@ int main()
     decoded_ciphertext = g_base64_decode(encoded_ciphertext, &decoded_length);
 
     cbc_cipher *cbc = malloc(sizeof (cbc_cipher));
+
+    /* char *iv = getenv("iv"); */ 
+    /* memcpy(cbc->iv, iv, 16); */
     cbc->iv = getenv("iv");
+
+    /* char *key = getenv("iv"); *1/ */
+    /* memcpy(cbc->key, key, 16); */
     cbc->key = getenv("key");
 
     if (cbc->iv == 0 || cbc->key == 0) {
