@@ -21,7 +21,6 @@ typedef struct cbc_cipher {
 void cbc_decrypt(cbc_cipher *cbc)
 { // takes a cbc_cipher struct, performs decryption
 
-    size_t i;
     int outlen;
     unsigned char buffer[cbc->input_length];
 
@@ -32,7 +31,7 @@ void cbc_decrypt(cbc_cipher *cbc)
     EVP_DecryptUpdate(&ctx, buffer, &outlen, cbc->ciphertext, cbc->input_length);
 
     // loop through and XOR with the right things
-    for (i = 0; i < cbc->input_length; i++) {
+    for (size_t i = 0; i < cbc->input_length; i++) {
         if (i < 16) {
             cbc->plaintext[i] = buffer[i] ^ cbc->iv[i];
         }

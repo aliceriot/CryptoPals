@@ -35,4 +35,4 @@ with the right character in the ciphertext. There's a struct and
 a function in `matasano.h` which take care of this together.
 
 I had fun with this one trying to write C code which uses libraries more
-smoothly - I used glibc for decoding b64 and OpenSSL for AES.
+smoothly - I used glib for decoding b64 and OpenSSL for AES.
