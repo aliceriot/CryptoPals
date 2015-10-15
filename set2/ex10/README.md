@@ -13,8 +13,8 @@ Here's what Wikipedia has to say:
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/CBC_decryption.svg/601px-CBC_decryption.svg.png)
 
 Cool. If you want to run it there's a little shell script that builds the
-program and sets the environmental variables correctly. You'll need
-`pkg-config`, `cmake`, and headers for OpenSSL and glib-2.0, then do:
+program and sets the environment variables correctly. You'll need
+`pkg-config`, `cmake`, and headers for OpenSSL and glib-2.0. Then do:
 
 ```
 ./solve.sh
