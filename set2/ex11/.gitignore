@@ -3,3 +3,5 @@ exercise_11
 *.scn
 *.tex
 *.log
+*.pdf
+*.toc
