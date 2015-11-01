@@ -9,3 +9,21 @@ of parts we can tackle separately:
   half.
 * Another function which, given the output of the above, determines
   whether the ciphertext was encrypted using ECB or CBC.
+
+I wrote this program using CWEB, which was a lot of fun! Make knows what
+to do if you just want to run the program. If you want to generate the fun
+documentation you can do:
+
+```
+make docs
+```
+
+You need a bunch of stuff installed, sadly, for this to work. If you're on
+debian/ubuntu something like
+
+```
+sudo apt-get install cweb-latex
+```
+
+should take care of all the deps (assuming you already have `pkg-config`,
+`cmake`, and the headers for `OpenSSL` installed).
