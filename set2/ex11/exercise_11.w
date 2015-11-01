@@ -28,3 +28,52 @@ void random_bytes(int numbytes, unsigned char *output)
         output[i] = rand() % 256;
     }
 }
+
+@ Great! So if we want to actually do some random encryption we're going to
+need that random key. We included above the headers for OpenSSL, so we can
+use a (somewhat) friendly interface to that library of cryptographic primatives.
+
+Basically, we're going to generate a random key, randomly pick either ECB or CBC
+mode to encrypt our plaintext, and write the encrypted output to a pointer we
+pass in.
+
+@c
+void random_encryption(unsigned char *plaintext, unsigned char *ciphertext)
+{
+
+    EVP_CIPHER_CTX ctx;
+    EVP_CIPHER_CTX_init(&ctx);
+    int outlength;
+
+    srand(time(NULL));
+    int decrypt_switch = rand() % 2;
+    char key[16];
+    random_bytes(16,key);
+
+    if (decrypt_switch == 1) {
+        char iv[16];
+        random_bytes(16, iv);
+        EVP_EncryptInit_ex(&ctx, EVP_aes_128_cbc(), NULL, key, iv);
+        EVP_EncryptUpdate(&ctx, ciphertext, &outlength, plaintext, strlen(plaintext));
+    }
+    else {
+        EVP_EncryptInit_ex(&ctx, EVP_aes_128_ecb(), NULL, key, NULL);
+        EVP_EncryptUpdate(&ctx, ciphertext, &outlength, plaintext, strlen(plaintext));
+    }
+}
+
+
+@ This is a placeholder `main' function for now:
+
+@c
+int main()
+{
+    unsigned char *plaintext = "just a test whoooasdfasdf";
+    unsigned char ciphertext[strlen(plaintext)];
+
+    random_encryption(plaintext, ciphertext);
+
+    for (int i =0; i < strlen(ciphertext); i++) {
+        printf("%x\t%x\n", plaintext[i], ciphertext[i]);
+    }
+}
